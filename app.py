@@ -18,9 +18,18 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'default_secret')
 
 # Handle Render's postgres:// vs postgresql://
-db_uri = os.getenv('DATABASE_URL', 'sqlite:///database.db')
-if db_uri.startswith('postgres://'):
-    db_uri = db_uri.replace('postgres://', 'postgresql://', 1)
+# Database Configuration
+# Local: SQLite
+# Railway: PostgreSQL
+
+db_uri = os.getenv('DATABASE_URL')
+
+if db_uri:
+    if db_uri.startswith('postgres://'):
+        db_uri = db_uri.replace('postgres://', 'postgresql://', 1)
+else:
+    db_uri = 'sqlite:///database.db'
+
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
