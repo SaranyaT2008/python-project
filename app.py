@@ -16,8 +16,7 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'default_secret')
-
-# Handle Render's postgres:// vs postgresql://
+# Handle PostgreSQL URL format
 # Database Configuration
 # Local: SQLite
 # Railway: PostgreSQL
