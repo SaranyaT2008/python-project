@@ -42,9 +42,13 @@ app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_DEFAULT_SENDER')
 
-UPLOAD_FOLDER = 'static/uploads'
+UPLOAD_FOLDER = os.path.join('static', 'uploads')
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 db.init_app(app)
 login_manager.init_app(app)
