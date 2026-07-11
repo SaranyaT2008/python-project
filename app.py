@@ -68,7 +68,11 @@ oauth.register(
 
 
 with app.app_context():
-    db.create_all()
+    try:
+        db.create_all()
+        print("Database tables created successfully")
+    except Exception as e:
+        print("Database error:", e)
 
 @login_manager.user_loader
 def load_user(user_id):
